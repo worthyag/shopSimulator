@@ -2,7 +2,8 @@
 
 int main(int argc, const char * argv[]) {
   Shop::welcomeUser();
-  Shop::displayItems();
+  Shop::shopItems();
+  Shop::checkout();
 
   return 0;
 }

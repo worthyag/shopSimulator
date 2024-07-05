@@ -7,6 +7,8 @@ class Shop {
   public:
     static void welcomeUser();
     static void displayItems();
+    static void shopItems();
+    static void checkout();
 };
 
 #endif // SHOP_HPP
