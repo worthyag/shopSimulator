@@ -1,9 +1,8 @@
-#include <iostream>
+#include "library/Shop.hpp"
 
 int main(int argc, const char * argv[]) {
-  std::cout << "Welcome to Worthy's Shop.";
-
-  // Display Shop menu.
+  Shop::welcomeUser();
+  Shop::displayItems();
 
   return 0;
 }
