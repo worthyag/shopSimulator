@@ -1,0 +1,3 @@
+card-number: 00000003
+pin: 1263
+balance: 345

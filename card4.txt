@@ -1,0 +1,3 @@
+card-number: 00000004
+pin: 3204
+balance: 750
