@@ -1,0 +1,1 @@
+cp new.txt $1.cpp
