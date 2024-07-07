@@ -5,6 +5,9 @@
 #include <sstream>
 #include <thread>
 #include <chrono>
+#include <limits>
+
+std::vector<std::vector<int>> Shop::basket {};
 
 void Shop::welcomeUser() {
   std::cout << "----------------------------" << std::endl;
@@ -63,15 +66,53 @@ void Shop::displayItems() {
 }
 
 void Shop::shopItems() {
-  // while (true) {
+  char willBuy {};
+  std::cout << "Would you like to make a purchase? ('y' or 'n') > ";
+  std::cin >> willBuy;
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  if (willBuy == 'n') return;
 
-  // }
+  bool makePurchase {true};
 
-  std::cout << "Shop." << std::endl;
+  do {
+    int itemID {};
+    std::cout << "What would you like to purchase?" << std::endl;
+    std::cout << "Enter item id > ";
+    std::cin >> itemID;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    char checkout {};
+    std::cout << "Ready to checkout? ('y' or 'n') > ";
+    std::cin >> checkout;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (checkout == 'y') break;
+  } while (makePurchase);
+
+  std::vector<int> a {1, 2};
+  std::vector<int> b {3, 2};
+  std::vector<int> c {5, 1};
+
+  /* TODO:
+   Write the logic that checks whether there is stock for an item available
+   If there is, add the item to the basket, and the number of it purchased.
+   To checkout, calculate the cost using the basket.
+   Pay using card.
+  */
+
+  basket.push_back(a);
+  basket.push_back(b);
+  basket.push_back(c);
 }
 
 void Shop::checkout() {
   std::cout << "Checkout." << std::endl;
+
+  for (auto item : basket) {
+    for (auto token : item) {
+      std::cout << token << " ";
+    }
+    std::cout << std::endl;
+  }
 }
 
 void Shop::sleep(int duration, int type) {

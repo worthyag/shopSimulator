@@ -11,9 +11,12 @@ class Shop {
     static void checkout();
   
   private:
+    static std::vector<std::vector<int>> basket;
+    
     static std::vector<std::vector<std::string>> buildItemsDB();
     static void displayItems();
     static void sleep(int duration, int type = 2);
+    static void addToBasket();
 };
 
 #endif // SHOP_HPP
