@@ -7,10 +7,13 @@
 class Shop {
   public:
     static void welcomeUser();
-    static std::vector<std::vector<std::string>> buildItemsDB();
-    static void displayItems();
     static void shopItems();
     static void checkout();
+  
+  private:
+    static std::vector<std::vector<std::string>> buildItemsDB();
+    static void displayItems();
+    static void sleep(int duration, int type = 2);
 };
 
 #endif // SHOP_HPP
