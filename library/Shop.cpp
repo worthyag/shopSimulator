@@ -6,7 +6,9 @@
 #include <thread>
 #include <chrono>
 #include <limits>
+#include <iomanip>
 
+std::vector<std::tuple<int, std::string, int, double>> Shop::inventory {};
 std::vector<std::vector<int>> Shop::basket {};
 
 void Shop::welcomeUser() {
@@ -30,6 +32,10 @@ std::vector<std::vector<std::string>> Shop::buildItemsDB() {
   
   ifs.open("../items/shopItems.csv");
 
+  // Discard header.
+  std::string discardHeader {};
+  std::getline(ifs, discardHeader);
+
   while (std::getline(ifs, itemInfoStr)) {
     std::vector<std::string> itemInfo {};
     std::stringstream ss {itemInfoStr};
@@ -46,19 +52,60 @@ std::vector<std::vector<std::string>> Shop::buildItemsDB() {
   return itemsDB;
 }
 
+void Shop::buildInventory(std::vector<std::vector<std::string>> itemsDB) {
+  for (auto itemInfo : itemsDB) {
+    if (itemInfo.size() < 4) {
+      std::cerr << "Error: Invalid item data format in CSV." << std::endl;
+      continue;
+    }
+
+    int id {};
+    std::string name {};
+    int quantity {};
+    double price {};
+
+    try {
+      id = std::stoi(itemInfo[0]);          // Converting string to int for id.
+      name = itemInfo[1];                   // Extracting name directly.
+      quantity = std::stoi(itemInfo[2]);    // Converting string to int for quantity.
+      price = std::stod(itemInfo[3]);       // Converting string to double for price.
+
+    } catch (const std::exception& e) {
+      std::cerr << "Error converting item data: " << e.what() << std::endl;
+      continue;
+    }
+
+    std::tuple<int, std::string, int, double> itemTuple(id, name, quantity, price);
+    inventory.push_back(itemTuple);
+  }
+}
+
 void Shop::displayItems() {
-  std::cout << "Items." << std::endl;
-  std::cout << "========" << std::endl;
+  std::cout << "Items" << std::endl;
+  std::cout << "======" << std::endl;
 
   std::vector<std::vector<std::string>> itemsDB {buildItemsDB()};
 
-  // Testing.
-  for (auto itemInfo : itemsDB) {
-    for (auto token : itemInfo) {
-      std::cout << token << " ";
-      sleep(175, 1);
-    }
-    std::cout << std::endl;
+  // Displaying the header.
+  std::cout << std::left << std::setw(5) << "ID"
+            << std::left << std::setw(20) << "Item"
+            << std::left << std::setw(10) << "Quantity"
+            << std::left << "Price (£)" << std::endl;
+
+  std::string line (45, '-');
+  std::cout << line << std::endl;
+
+  // Building the inventory from itemsDB.
+  buildInventory(itemsDB);
+
+  // Displaying items.
+  for (auto itemTuple : inventory) {
+    std::cout << std::left << std::setw(5) << std::get<0>(itemTuple)         // id
+              << std::left << std::setw(20) << std::get<1>(itemTuple)        // name
+              << std::left << std::setw(10) << std::get<2>(itemTuple) << "£" // quantity
+              << std::left << std::fixed << std::setprecision(2) <<          // price
+              std::get<3>(itemTuple) << std::endl;           
+    sleep(175, 1);
   }
 
   std::cout << std::endl;
@@ -81,6 +128,9 @@ void Shop::shopItems() {
     std::cin >> itemID;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
+    // Checking the inventory.
+    checkInventory(itemID);
+
     char checkout {};
     std::cout << "Ready to checkout? ('y' or 'n') > ";
     std::cin >> checkout;
@@ -88,9 +138,9 @@ void Shop::shopItems() {
     if (checkout == 'y') break;
   } while (makePurchase);
 
-  std::vector<int> a {1, 2};
-  std::vector<int> b {3, 2};
-  std::vector<int> c {5, 1};
+  // std::vector<int> a {1, 2};
+  // std::vector<int> b {3, 2};
+  // std::vector<int> c {5, 1};
 
   /* TODO:
    Write the logic that checks whether there is stock for an item available
@@ -99,13 +149,13 @@ void Shop::shopItems() {
    Pay using card.
   */
 
-  basket.push_back(a);
-  basket.push_back(b);
-  basket.push_back(c);
+  // basket.push_back(a);
+  // basket.push_back(b);
+  // basket.push_back(c);
 }
 
 void Shop::checkInventory(int itemID) {
-
+  std::cout << "Checking the inventory\n";
 }
 
 void Shop::addToBasket() {
