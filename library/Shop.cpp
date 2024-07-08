@@ -52,7 +52,7 @@ std::vector<std::vector<std::string>> Shop::buildItemsDB() {
   return itemsDB;
 }
 
-void Shop::buildInventory(std::vector<std::vector<std::string>> itemsDB) {
+void Shop::buildInventory(const std::vector<std::vector<std::string>> itemsDB) {
   for (auto itemInfo : itemsDB) {
     if (itemInfo.size() < 4) {
       std::cerr << "Error: Invalid item data format in CSV." << std::endl;
@@ -154,7 +154,7 @@ void Shop::shopItems() {
   // basket.push_back(c);
 }
 
-void Shop::checkInventory(int itemID) {
+void Shop::checkInventory(const int itemID) {
   std::cout << "Checking the inventory\n";
 }
 
@@ -173,7 +173,7 @@ void Shop::checkout() {
   }
 }
 
-void Shop::sleep(int duration, int type) {
+void Shop::sleep(const int duration, const int type) {
   // Adding timeout to allow users to properly digest the information.
 
   switch (type) {
