@@ -12,9 +12,9 @@ std::vector<std::tuple<int, std::string, int, double>> Shop::inventory {};
 std::vector<std::vector<int>> Shop::basket {};
 
 void Shop::welcomeUser() {
-  std::cout << "----------------------------" << std::endl;
-  std::cout << "Welcome to Worthy's Shop." << std::endl;
-  std::cout << "----------------------------" << std::endl;
+  std::cout << "----------------------------\n";
+  std::cout << "Welcome to Worthy's Shop.\n";
+  std::cout << "----------------------------\n";
   std::cout << std::endl;
 
   sleep(1);
@@ -81,8 +81,8 @@ void Shop::buildInventory(const std::vector<std::vector<std::string>> itemsDB) {
 }
 
 void Shop::displayItems() {
-  std::cout << "Items" << std::endl;
-  std::cout << "======" << std::endl;
+  std::cout << "Items\n";
+  std::cout << "======\n";
 
   std::vector<std::vector<std::string>> itemsDB {buildItemsDB()};
 
@@ -90,7 +90,7 @@ void Shop::displayItems() {
   std::cout << std::left << std::setw(5) << "ID"
             << std::left << std::setw(20) << "Item"
             << std::left << std::setw(10) << "Quantity"
-            << std::left << "Price (£)" << std::endl;
+            << std::left << "Price (£)\n";
 
   std::string line (45, '-');
   std::cout << line << std::endl;
@@ -104,7 +104,7 @@ void Shop::displayItems() {
               << std::left << std::setw(20) << std::get<1>(itemTuple)        // name
               << std::left << std::setw(10) << std::get<2>(itemTuple) << "£" // quantity
               << std::left << std::fixed << std::setprecision(2) <<          // price
-              std::get<3>(itemTuple) << std::endl;           
+              std::get<3>(itemTuple) << '\n';           
     sleep(175, 1);
   }
 
