@@ -56,13 +56,13 @@ void Shop::displayItems() {
   for (auto itemInfo : itemsDB) {
     for (auto token : itemInfo) {
       std::cout << token << " ";
-      sleep(10, 1);
+      sleep(175, 1);
     }
     std::cout << std::endl;
-    sleep(1, 2);
   }
 
   std::cout << std::endl;
+  sleep(1, 2);
 }
 
 void Shop::shopItems() {
@@ -102,6 +102,14 @@ void Shop::shopItems() {
   basket.push_back(a);
   basket.push_back(b);
   basket.push_back(c);
+}
+
+void Shop::checkInventory(int itemID) {
+
+}
+
+void Shop::addToBasket() {
+
 }
 
 void Shop::checkout() {
