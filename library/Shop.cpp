@@ -121,7 +121,7 @@ void Shop::shopItems() {
 
   do {
     int itemID {};
-    std::cout << "What would you like to purchase?" << std::endl;
+    std::cout << "\nWhat would you like to purchase?" << std::endl;
     std::cout << "Enter item id > ";
     std::cin >> itemID;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -129,44 +129,38 @@ void Shop::shopItems() {
     // Checking the inventory.
     checkInventory(itemID);
 
-    char checkout {};
+    char co {};
     std::cout << "Ready to checkout? ('y' or 'n') > ";
-    std::cin >> checkout;
+    std::cin >> co;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if (checkout == 'y') break;
+    if (co == 'y') {checkout(); break;}
   } while (makePurchase);
 
-  // std::vector<int> a {1, 2};
-  // std::vector<int> b {3, 2};
-  // std::vector<int> c {5, 1};
 
   /* TODO:
    Write the logic that checks whether there is stock for an item available
    If there is, add the item to the basket, and the number of it purchased.
+   Reduce the quantity in the inventory and write to the file.
    To checkout, calculate the cost using the basket.
    Pay using card.
-  */
 
-  // basket.push_back(a);
-  // basket.push_back(b);
-  // basket.push_back(c);
+   Add exceptions, so that users can only enter the given numbers.
+  */
 }
 
 void Shop::checkInventory(const int itemID) {
-  std::cout << "Checking the inventory\n";
-  // std::vector<std::tuple<int, std::string, int, double>> Shop::inventory {};
-  // std::vector<std::vector<int>> Shop::basket {};
+  std::cout << "Checking the inventory...\n\n";
+  sleep(1, 2);
 
   std::tuple<int, std::string, int, double> itemInventory {inventory[itemID]};
 
-  // int id, std::string name, int quantity, double price
   std::string name {std::get<1>(itemInventory)};
   double price {std::get<3>(itemInventory)};
 
   if (std::get<2>(itemInventory) > 0) {
-    (addToBasket(name, price)) ? (std::cout << name << " added to basket.\n") 
-                    : std::cerr << " Was unable to add " << name << " to basket.";
-  } else std::cout << "Sorry, " << name << " out of stock!\n";
+    (addToBasket(name, price)) ? (std::cout << name << " added to basket.\n\n") 
+                    : std::cerr << " Was unable to add " << name << " to basket.\n\n";
+  } else std::cout << "Sorry, " << name << " out of stock!\n\n";
 
 }
 
@@ -182,11 +176,14 @@ bool Shop::addToBasket(const std::string item, const double itemPrice) {
 }
 
 void Shop::checkout() {
-  std::cout << "Basket contains:\n";
+  std::cout << "\nBasket contains:\n";
 
   for (auto item : basket) {
-    std::cout << item << '\n';
+    std::cout << "  *" << item << '\n';
   }
+
+  std::cout << "\nThe total is:\n";
+  std::cout << "£" << total << '\n';
 
   std::cout << std::endl;
 }
