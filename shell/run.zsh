@@ -1,2 +1,2 @@
-g++ --std=c++11 ../*.cpp ../library/*.cpp -o run
+g++ --std=c++17 ../*.cpp ../library/*.cpp -o run
 ./run

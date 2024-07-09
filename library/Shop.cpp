@@ -24,13 +24,11 @@ void Shop::welcomeUser() {
 }
 
 std::vector<std::vector<std::string>> Shop::buildItemsDB() {
-  std::ifstream ifs {};
+  std::ifstream ifs {"../items/shopItems.csv"};
   std::string itemInfoStr {};
 
   // Building the items DB.
   std::vector<std::vector<std::string>> itemsDB {};
-  
-  ifs.open("../items/shopItems.csv");
 
   // Discard header.
   std::string discardHeader {};
@@ -47,8 +45,7 @@ std::vector<std::vector<std::string>> Shop::buildItemsDB() {
 
     itemsDB.push_back(itemInfo);
   }
-
-  ifs.close();
+  
   return itemsDB;
 }
 
