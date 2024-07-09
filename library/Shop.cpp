@@ -9,7 +9,9 @@
 #include <iomanip>
 
 std::vector<std::tuple<int, std::string, int, double>> Shop::inventory {};
-std::vector<std::vector<int>> Shop::basket {};
+// std::vector<std::vector<int>> Shop::basket {};
+std::vector<std::string> Shop::basket {};
+double Shop::total {};
 
 void Shop::welcomeUser() {
   std::cout << "----------------------------\n";
@@ -45,7 +47,7 @@ std::vector<std::vector<std::string>> Shop::buildItemsDB() {
 
     itemsDB.push_back(itemInfo);
   }
-  
+
   return itemsDB;
 }
 
@@ -152,21 +154,41 @@ void Shop::shopItems() {
 
 void Shop::checkInventory(const int itemID) {
   std::cout << "Checking the inventory\n";
+  // std::vector<std::tuple<int, std::string, int, double>> Shop::inventory {};
+  // std::vector<std::vector<int>> Shop::basket {};
+
+  std::tuple<int, std::string, int, double> itemInventory {inventory[itemID]};
+
+  // int id, std::string name, int quantity, double price
+  std::string name {std::get<1>(itemInventory)};
+  double price {std::get<3>(itemInventory)};
+
+  if (std::get<2>(itemInventory) > 0) {
+    (addToBasket(name, price)) ? (std::cout << name << " added to basket.\n") 
+                    : std::cerr << " Was unable to add " << name << " to basket.";
+  } else std::cout << "Sorry, " << name << " out of stock!\n";
+
 }
 
-void Shop::addToBasket() {
-
+bool Shop::addToBasket(const std::string item, const double itemPrice) {
+  try {
+    basket.push_back(item);
+    total += itemPrice;
+    return true;
+  } catch (const std::exception& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+  }
+  return false;
 }
 
 void Shop::checkout() {
-  std::cout << "Checkout." << std::endl;
+  std::cout << "Basket contains:\n";
 
   for (auto item : basket) {
-    for (auto token : item) {
-      std::cout << token << " ";
-    }
-    std::cout << std::endl;
+    std::cout << item << '\n';
   }
+
+  std::cout << std::endl;
 }
 
 void Shop::sleep(const int duration, const int type) {
