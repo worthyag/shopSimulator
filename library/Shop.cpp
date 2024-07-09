@@ -99,16 +99,7 @@ void Shop::displayItems() {
   buildInventory(itemsDB);
 
   // Displaying items.
-  // for (auto itemTuple : inventory) {
-  //   std::cout << std::left << std::setw(5) << std::get<0>(itemTuple)         // id
-  //             << std::left << std::setw(20) << std::get<1>(itemTuple)        // name
-  //             << std::left << std::setw(10) << std::get<2>(itemTuple) << "£" // quantity
-  //             << std::left << std::fixed << std::setprecision(2) <<          // price
-  //             std::get<3>(itemTuple) << '\n';           
-  //   sleep(175, 1);
-  // }
-
-  for (auto [id, name, quantity, price] : inventory) {
+  for (auto& [id, name, quantity, price] : inventory) {
     std::cout << std::left << std::setw(5) << id
               << std::left << std::setw(20) << name
               << std::left << std::setw(10) << quantity << "£"
